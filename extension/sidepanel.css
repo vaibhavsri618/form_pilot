@@ -1,0 +1,136 @@
+:root {
+  --bg: #ffffff;
+  --panel: #f5f6f8;
+  --fg: #1c1f24;
+  --muted: #667085;
+  --border: #d6d9e0;
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+  --ok: #15803d;
+  --bad: #b91c1c;
+  --hint-bg: #eef4ff;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17191d;
+    --panel: #20232a;
+    --fg: #e6e8eb;
+    --muted: #9aa3b2;
+    --border: #343843;
+    --accent: #5b8cff;
+    --accent-fg: #0b1020;
+    --ok: #4ade80;
+    --bad: #f87171;
+    --hint-bg: #1d2740;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  padding: 10px 12px 12px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+header { display: flex; align-items: center; gap: 8px; min-width: 0; }
+header h1 { font-size: 14px; margin: 0; white-space: nowrap; }
+#tabUrl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.err { color: var(--bad); font-size: 12px; white-space: pre-wrap; }
+
+button, select, .btn {
+  font: inherit;
+  color: var(--fg);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+button:hover, .btn:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, textarea:focus-visible, .btn:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+button:disabled { opacity: .6; cursor: default; }
+button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); font-weight: 600; }
+button.link { background: none; border: none; padding: 0 2px; color: var(--accent); text-decoration: underline; }
+.btn { display: inline-block; }
+
+.bar { display: flex; gap: 6px; position: relative; }
+.bar select { flex: 1; min-width: 0; }
+.menu {
+  position: absolute; right: 0; top: calc(100% + 4px); z-index: 5;
+  display: flex; flex-direction: column; min-width: 220px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / .18); padding: 4px;
+}
+.menu[hidden] { display: none; }
+.menu button { border: none; background: none; text-align: left; border-radius: 4px; }
+.menu button:hover { background: var(--panel); }
+.menu .danger { color: var(--bad); }
+
+.hint {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  background: var(--hint-bg); border-radius: 6px; padding: 6px 8px; font-size: 12px;
+}
+.hint[hidden] { display: none; }
+
+#editor {
+  flex: 1 1 320px;
+  min-height: 220px;
+  resize: vertical;
+  width: 100%;
+  font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--fg);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px;
+  tab-size: 2;
+}
+
+.run { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.check { display: inline-flex; align-items: center; gap: 4px; }
+
+details { border-top: 1px solid var(--border); padding-top: 6px; }
+summary { cursor: pointer; font-weight: 600; }
+details p { margin: 4px 0; }
+code, kbd { font-family: ui-monospace, Menlo, monospace; font-size: 11px; background: var(--panel); padding: 1px 4px; border-radius: 4px; }
+
+#fileList { list-style: none; margin: 4px 0 6px; padding: 0; max-height: 160px; overflow: auto; }
+#fileList li { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+#fileList .name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#fileList button { padding: 0 6px; line-height: 18px; }
+
+#log {
+  margin: 4px 0 0;
+  max-height: 220px;
+  overflow: auto;
+  font: 11.5px/1.45 ui-monospace, Menlo, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+#log .ok { color: var(--ok); }
+#log .bad { color: var(--bad); }
+
+footer { margin-top: auto; }
+
+.hero { display: flex; flex-direction: column; gap: 6px; }
+.hero .check { display: block; font-size: 12px; padding-left: 20px; text-indent: -20px; }
+.hero .check input { margin: 0 6px 0 0; vertical-align: -2px; }
+button.big { padding: 9px 12px; font-size: 14px; }
+#editorWrap { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+#editorWrap[hidden] { display: none; }
+#editor { flex: none; height: 300px; }
+#profilesBox[open], #filesBox[open] { display: flex; flex-direction: column; gap: 6px; }

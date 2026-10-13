@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Pilot</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <header>
+    <img src="icons/icon48.png" alt="" width="20" height="20">
+    <h1>Form Pilot</h1>
+    <span id="tabUrl" class="muted" title=""></span>
+  </header>
+
+  <section class="hero">
+    <button id="autoBtn" class="primary big">Fill with dummy data</button>
+    <label class="check"><input type="checkbox" id="optSteps"> Keep going through steps
+      <span class="muted">(clicks Next / Save and continue, never Submit)</span></label>
+    <label class="check"><input type="checkbox" id="optOverwrite"> Replace values already filled</label>
+  </section>
+
+  <div id="matchHint" class="hint" hidden>
+    <span>Your profile <b id="matchName"></b> fits this page.</span>
+    <button id="useMatch" class="link">Fill with it</button>
+  </div>
+
+  <div id="afterFill" class="hint" hidden>
+    <span id="afterFillText"></span>
+    <button id="saveAsProfile" class="link">Save as profile</button>
+  </div>
+
+  <details id="logBox" open>
+    <summary>Log <button id="clearLog" class="link small">clear</button></summary>
+    <pre id="log" aria-live="polite"></pre>
+  </details>
+
+  <details id="profilesBox">
+    <summary>Profiles <span class="muted small">— your own values for a form</span></summary>
+    <p class="muted small">Keys are the labels you see on screen. Fields left as <code>""</code> are skipped.</p>
+    <section class="bar">
+      <select id="profileSel" aria-label="Profile"></select>
+      <button id="scaffoldBtn" title="Create a profile listing every field of the form on this page">From page</button>
+      <button id="moreBtn" aria-haspopup="menu" aria-expanded="false" title="More">⋯</button>
+      <div id="moreMenu" class="menu" role="menu" hidden>
+        <button role="menuitem" id="newBtn">New empty profile</button>
+        <button role="menuitem" id="dupBtn">Duplicate</button>
+        <button role="menuitem" id="importBtn">Import .yaml / .json…</button>
+        <button role="menuitem" id="exportBtn">Export</button>
+        <button role="menuitem" id="delBtn" class="danger">Delete</button>
+      </div>
+      <input type="file" id="importInput" accept=".yaml,.yml,.json,.txt" hidden>
+    </section>
+    <p id="noProfiles" class="muted small" hidden>No profiles yet. Fill a form with dummy data and click
+      <b>Save as profile</b>, or click <b>From page</b>.</p>
+    <div id="editorWrap">
+      <textarea id="editor" spellcheck="false" wrap="off" aria-label="Profile YAML"></textarea>
+      <div id="parseErr" class="err" hidden></div>
+      <section class="run">
+        <button id="fillBtn">Fill with this profile</button>
+        <label class="check"><input type="checkbox" id="fieldsOnly"> Fields only <span class="muted">(skip url &amp; steps)</span></label>
+      </section>
+    </div>
+  </details>
+
+  <details id="filesBox">
+    <summary>Attachments <span id="fileCount" class="muted"></span></summary>
+    <p class="muted small">Upload fields get a generated dummy file of the right type. Add your own sample files here to use
+      them instead whenever the type matches.</p>
+    <ul id="fileList"></ul>
+    <label class="btn">Add files<input type="file" id="fileInput" multiple hidden></label>
+  </details>
+
+  <footer class="muted small">Shortcut <kbd id="shortcut">Alt+Shift+F</kbd> fills the page: your matching profile if
+    there is one, otherwise dummy data. Change it at chrome://extensions/shortcuts.</footer>
+
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>
